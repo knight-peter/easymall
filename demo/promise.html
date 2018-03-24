@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ES6-Promise演示</title>
+  <!-- <script src="./promise.js"></script> -->
+</head>
+
+<body>
+  <script>
+    let checkLogin = () => {
+      return new Promise(function (resolve, reject) {
+        let flag = document.cookie.indexOf('userId') > -1 ? true : false;
+        if (flag = true) { //把flag设置为true
+          resolve({
+            status: 0,
+            result: true
+          })
+        } else {
+          reject('error')
+        }
+      })
+    }
+    let getUserInfo = () => {
+      return new Promise((resolve, reject) => {
+        let userInfo = {
+          userId: '101'
+        }
+        resolve(
+          userInfo
+        )
+      });
+    }
+    checkLogin().then(res => {
+      if (res.status === 0) {
+        console.log('login success');
+        return getUserInfo();
+      }
+    }).catch((error) => {
+      console.log(`error:${error}`);
+    }).then((res2) => {
+      console.log(`userId:${res2.userId}`);
+    });
+
+    Promise.all([checkLogin(), getUserInfo()]).then(([res1, res2]) => {
+      console.log(`result1:${res1.result},result2:${res2.userId}`);
+    })
+    /*
+    使用async/await,代码更加简洁，流程更加清晰。
+    主要是用在执行函数阶段，定义函数阶段差不多
+     */
+    async function myLogin() {
+      try {
+        // let data = await checkLogin();
+        // let data2 = await getUserInfo();
+        let data3 = await Promise.all([checkLogin(), getUserInfo()]);
+        return data3;
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    myLogin().then(res => console.log('async-result:', res[0].result, 'async-userId:', res[1].userId))
+
+  </script>
+</body>
+
+</html>

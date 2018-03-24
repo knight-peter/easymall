@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ES6-0-Demo演示</title>
+</head>
+
+<body>
+  <script>
+    function sum(x, y, z) {
+      let total = 0;
+      if (x) total += x;
+      if (y) total += y;
+      if (z) total += z;
+      console.log(`total1:${total}`)
+    }
+    sum(1, 2, 3);
+
+    function sum2(...m) {
+      let total = 0;
+      for (let i of m) {
+        total += i;
+      }
+      console.log(`total2:${total}`)
+    }
+    sum2(1, 2, 3, 4);
+
+    let sum3 = (...rest) => {
+      let total = 0;
+      for (let i of rest) {
+        total += i;
+      }
+      console.log(`total3:${total}`)
+    }
+    sum3(1, 2, 3, 4)
+    //数组的扩展
+    var [x, y] = [4, 8];
+    console.log(...[4, 8])
+
+    let arr1 = [1, 3];
+    let arr2 = [4, 8];
+    console.log('concat:' + arr1.concat(arr2));
+    // [...arr1, ...arr2]
+
+    var [x, ...y] = [4, 8, 10, 30]
+    //字符串的解构
+    let [a, b, c] = 'ES6';
+    let xy = [...'ES6'];
+    /*
+    ...作用
+    1.动态参数
+    2.数组拆解
+
+     */
+
+  </script>
+</body>
+
+</html>
